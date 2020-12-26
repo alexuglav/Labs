@@ -1,0 +1,47 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	//создание массива и его вывод
+	setlocale(LC_ALL, "Russian");
+	int a[100];
+	int n;
+	cout << "размер массива: ";
+	cin >> n;
+	cout << "массив: ";
+	for (int i = 0; i < n; i++) {
+		a[i] = rand() % 20 - 10;
+		cout << a[i] << ' ';
+	}
+	cout << '\n';
+	//удалениие элементов массива с индексом кратным 3
+	int x = 1;
+	for (int i = 0; i < n; i++) {
+		if ((i + x) % 3 == 0) {
+			x++;
+			for (int j = i; j <= n - x; j++) {
+				a[j] = a[j + 1];
+			}
+		}
+	}
+	n = n - (n / 3);
+	//добавление после каждого отрицательного элемента этот элемент + 1
+	for (int i = 0; i < n; i++) {
+		if (a[i] < 0) {
+			for (int j = n; i < j ; j--) {
+				a[j] = a[j - 1];
+			}
+			a[i + 1] = a[i] + 1;
+			n++;
+			i++;
+		}
+	}
+	//вывод массива
+	cout << "обновленный массив: ";
+	for (int i = 0; i < n; i++) {
+		cout << a[i] << ' ';
+	}
+	return 0;
+}
