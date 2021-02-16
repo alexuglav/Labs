@@ -1,0 +1,172 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+struct Human
+{
+    char surname[30], name[30], middlename[30];
+    char address[100];
+    char phone[20];
+    int age;
+};
+
+Human create()
+{
+    cout << "Фамилия: ";
+    char surname[30];
+    cin >> surname;
+
+    cout << "Имя: ";
+    char name[30];
+    cin >> name;
+
+    cout << "Отчество: ";
+    char middlename[30];
+    cin >> middlename;
+
+    cout << "Возраст: ";
+    int age;
+    cin >> age;
+
+    cout << "Адрес: ";
+    char address[100];
+    cin.ignore();
+    gets_s(address);
+
+    cout << "Телефон: ";
+    char phone[20];
+    cin >> phone;
+
+    Human p;
+    strcpy(p.address, address);
+    strcpy(p.middlename, middlename);
+    strcpy(p.name, name);
+    strcpy(p.phone, phone);
+    strcpy(p.surname, surname);
+    p.age = age;
+
+    return p;
+}
+
+void form_file()
+{
+    cout << "Кол-во людей = ";
+    int count;
+    cin >> count;
+
+    FILE* file = fopen("file.dat", "wb");
+    if (file == NULL)
+        exit(1);
+
+    for (int i = 0; i < count; i++)
+    {
+        Human p = create();
+
+        fwrite(&p, sizeof(Human), 1, file);
+
+        if (ferror(file))
+            exit(2);
+    }
+
+    fclose(file);
+}
+
+void out_file()
+{
+    FILE* file = fopen("file.dat", "rb");
+    Human p;
+    cout << setw(25) << "ФИО" << setw(10) << "Возраст" << setw(11) << "Телефон" << setw(20) << "Адрес" << endl;
+
+    while (fread(&p, sizeof(Human), 1, file))
+    {
+        char fio[30] = "";
+        strcat(fio, p.surname);
+        strcat(fio, " ");
+        strcat(fio, p.name);
+        strcat(fio, " ");
+        strcat(fio, p.middlename);
+
+        cout << setw(25) << fio << setw(10) << p.age << setw(11) << p.phone << setw(20) << p.address << endl;
+    }
+
+    fclose(file);
+}
+
+void del_file()
+{
+    int delage;
+    cout << "Введете удаляемый возраст: ";
+    cin >> delage;
+    FILE* file = fopen("file.dat", "rb");
+    FILE* tempfile = fopen("temp.dat", "wb");
+    Human p;
+
+    bool value = false;
+
+    while (fread(&p, sizeof(Human), 1, file))
+    {
+        if (p.age != delage)
+        {
+            fwrite(&p, sizeof(Human), 1, tempfile);
+            value = true;
+        }
+    }
+
+    fclose(file);
+    fclose(tempfile);
+
+    if (value)
+    {
+        remove("file.dat");
+        rename("temp.dat", "file.dat");
+    }
+}
+
+void add_human()
+{
+    int pos;
+    cout << "После какого элемента добавить? ";
+    cin >> pos;
+    Human p = create();
+    Human t = p;
+    if (pos < 1)
+        cout << "Некорректный номер" << endl;
+    else
+    {
+        FILE* file = fopen("file.dat", "rb");
+        FILE* tempfile = fopen("temp.dat", "wb");
+        Human p;
+        int index = 0;
+
+        while (fread(&p, sizeof(Human), 1, file))
+        {
+            fwrite(&p, sizeof(Human), 1, tempfile);
+            index++;
+
+            if (index == pos)
+                fwrite(&t, sizeof(Human), 1, tempfile);
+        }
+
+        fclose(file);
+        fclose(tempfile);
+
+        remove("file.dat");
+        rename("temp.dat", "file.dat");
+
+        if (index < pos)
+            cout << "Некорректный номер" << endl;
+    }
+}
+
+int main()
+{
+    setlocale(LC_ALL, "rus");
+    form_file();
+    out_file();
+    del_file();
+    out_file();
+    add_human();
+    out_file();
+    return 0;
+}
