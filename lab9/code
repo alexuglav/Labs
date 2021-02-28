@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+void fill_F1(int count)
+{
+	ofstream fout;
+	fout.open("F1.txt");
+	if (!fout.is_open()) {
+		cout << "ошибка открытия файла F1.txt";
+	}
+	else {
+		string str;
+		for (int i = 1; i <= count; i++) {
+			cout << "введите " << i << " строку файла: ";
+			cin >> str;
+			fout << str << '\n';
+		}
+	}
+	fout.close();
+}
+
+void copy_F2(string str)
+{
+	ofstream fout;
+	fout.open("F2.txt", ofstream::app);
+	if (!fout.is_open()) {
+		cout << "ошибка открытия файла F2.txt" << '\n';
+	}
+	else {
+		fout << str << '\n';
+	}
+}
+
+int copy_F1()
+{
+	int sum = 5;
+	string str;
+	int count = 0;
+	ifstream fin;
+	fin.open("F1.txt");
+	if (!fin.is_open()) {
+		cout << "ошибка открытия файла F1.txt" << '\n';
+	}
+	else {
+		while (!fin.eof()) {
+			sum = str.length();
+			getline(fin, str);
+			count++;
+			if (count >= 4) {
+				copy_F2(str);
+			}
+		}
+	}
+	return sum;
+}
+
+int main()
+{
+	remove("F1.txt");
+	remove("F2.txt");
+	setlocale(LC_ALL, "Rus");
+	int count;
+	cout << "введите количество строк: ";
+	cin >> count;
+	while (count < 10) {
+		cout << "количество строк в файле не меньше 10! Введите коректный количество строк: ";
+		cin >> count;
+	}
+	fill_F1(count);
+	int sum = copy_F1();
+	cout << "количество символов в последнем слове F2.txt равно: " << sum;
+	return 0;
+}
