@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "Ru");
+    int n;
+    cout << "Введите размер массива: ";
+    cin >> n;
+    int* mas1 = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        mas1[i] = rand() % 50 + 1;
+        cout << i + 1 << " элемент массива равен : " << mas1[i] << '\n';
+    }
+
+    int v;
+    cout << "введите номер удаляемого элемента: ";
+    cin >> v;
+
+    int c = 0;
+    int* mas2 = new int[n - 1];
+    for (int i = 0; i < n; i++) {
+        if (i != v - 1) {
+            mas2[i] = mas1[i + c];
+        }
+        else {
+            c++;
+            mas2[i] = mas1[i + c];
+        }
+    }
+    for (int i = 0; i < n - 1; i++) {
+        cout << i + 1 << " элемент массива равен : " << mas2[i] << '\n';
+    }
+
+    delete[] mas1;
+
+    int k;
+    cout << "введите колчество добавляемых элементов: ";
+    cin >> k;
+
+    int* mas3 = new int[n - 1 + k];
+    for (int i = 0; i < v - 1; i++) {
+        mas3[i] = mas2[i];
+    }
+    for (int i = v - 1; i < v + k - 1; i++) {
+        cout << "введите " << i + 1 << " элемент: ";
+        cin >> mas3[i];
+    }
+    for (int i = v + k - 1; i < n - 1 + k; i++) {
+        mas3[i] = mas2[i - k];
+    }
+
+    delete[] mas2;
+
+    for (int i = 0; i < n - 1 + k; i++) {
+        cout << i + 1 << " элемент массива равен : " << mas3[i] << '\n';
+    }
+    delete[] mas3;
+
+    return 0;
+}
