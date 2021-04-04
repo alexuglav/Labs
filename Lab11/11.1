@@ -1,0 +1,103 @@
+/*
+Вариант 4
+Однонаправленный список: Тип информационного поля int. Удалить из списка последний элемент с четным информационным полем.
+*/
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct LIST
+{
+	int inf;
+	LIST* ptrNext = NULL;
+};
+
+LIST* Init(int size)
+{
+	LIST* ptrFirst = NULL;
+	LIST* ptr = new LIST;
+	cout << "Введите 1 элемент списка: \t";
+	cin >> ptr->inf;
+	ptrFirst = ptr;
+	for (int i = 2; i <= size; i++)
+	{
+		LIST* NewOb = new LIST;
+
+		ptr->ptrNext = NewOb;
+
+		ptr = ptr->ptrNext;
+
+		cout << "Введите " << i << " элемент списка: \t";
+		cin >> ptr->inf;
+	}
+	return ptrFirst;
+}
+
+void Print(LIST* ptrFirst)
+{
+	cout << endl;
+	if (ptrFirst == NULL)
+	{
+		cout << "Список пуст!" << endl;
+	}
+
+	else
+	{
+		LIST* ptr = ptrFirst;
+		while (ptr != NULL)
+		{
+			cout << ptr->inf << '\t';
+			ptr = ptr->ptrNext;
+		}
+		cout << endl << endl;
+	}
+}
+
+void DeleteElem(LIST* ptrFirst)
+{
+	LIST* elem = ptrFirst;
+	LIST* prev = NULL;
+
+	if (elem->inf % 2 == 0) {
+		prev = elem;
+	}
+	elem = elem->ptrNext;
+
+	while (elem->ptrNext != NULL) {
+		if (elem->ptrNext->inf % 2 == 0) {
+			prev = elem;
+		}
+		elem = elem->ptrNext;
+	}
+	if (prev != NULL) {
+		elem = prev;
+		elem->ptrNext = elem->ptrNext->ptrNext;
+	}
+}
+
+void Deleted(LIST* ptrFirst)
+{
+	LIST* ptr = ptrFirst;
+
+	while (ptr != NULL)
+	{
+		LIST* old = ptr;
+		ptr = ptr->ptrNext;
+		delete old;
+	}
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Ru");
+	int size;
+	cout << "введите количество элементов: ";
+	cin >> size;
+	LIST* ptrFirst = Init(size);
+	Print(ptrFirst);
+	DeleteElem(ptrFirst);
+	Print(ptrFirst);
+	Deleted(ptrFirst);
+	return 0;
+}
