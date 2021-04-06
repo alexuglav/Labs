@@ -1,0 +1,104 @@
+/*
+Вариант 4
+Тип информационного поля char*. Добавить в список элемент с заданным номером.
+*/
+#include <iostream>
+
+using namespace std;
+
+struct LIST
+{
+	char inf = NULL;
+	LIST* ptrPrev = NULL;
+	LIST* ptrNext = NULL;
+};
+
+LIST* Init(int size)
+{
+	LIST* ptrFirst = NULL;
+	LIST* ptr = new LIST;
+
+	cout << "Введите 1 элемент списка: ";
+	cin >> ptr->inf;
+	ptrFirst = ptr;
+
+	for (int i = 2; i <= size; i++)
+	{
+		LIST* NewElem = new LIST;
+		LIST* ptr2 = ptr;
+		ptr->ptrNext = NewElem;
+		ptr = ptr->ptrNext;
+		cout << "Введите " << i << " элемент списка: ";
+		cin >> ptr->inf;
+		ptr->ptrPrev = ptr2;
+		ptr->ptrNext = NULL;
+	}
+	return ptrFirst;
+}
+
+void AddElem(int count, LIST* ptrFirst)
+{
+	LIST* ptr = ptrFirst;
+	while (ptr != NULL)
+	{
+		if (count == 1) {
+			LIST* Prev = ptr->ptrPrev;
+			LIST* Next = ptr;
+			LIST* NewElem = new LIST;
+
+			ptr = NewElem;
+
+			cout << "Введите элемент списка: ";
+			cin >> ptr->inf;
+			ptr->ptrPrev = Prev;
+			ptr->ptrNext = Next;
+			ptr = ptr->ptrPrev;
+			ptr->ptrNext = NewElem;
+			ptr = ptr->ptrNext;
+			ptr = ptr->ptrNext;
+			ptr->ptrPrev = NewElem;
+			ptr = ptr->ptrPrev;
+		}
+		count--;
+		ptr = ptr->ptrNext;
+	}
+}
+
+void Print(LIST* ptrFirst)
+{
+	cout << "список: " << '\n';
+	LIST* ptr = ptrFirst;
+	while (ptr != NULL)
+	{
+		cout << ptr->inf << "\t";
+		ptr = ptr->ptrNext;
+	}
+	cout << '\n';
+}
+
+void Deleted(LIST* ptrFirst)
+{
+	LIST* ptr = ptrFirst;
+	while (ptr != NULL)
+	{
+		ptrFirst = ptr;
+		ptr = ptr->ptrNext;
+		delete ptrFirst;
+	}
+}
+
+int main()
+{
+	setlocale(LC_ALL, "Ru");
+	int size;
+	cout << "Введите количество элементов: ";
+	cin >> size;
+	LIST* ptrFirst = Init(size);
+	Print(ptrFirst);
+	int count;
+	cout << "Введите номер элемента: ";
+	cin >> count;
+	AddElem(count, ptrFirst);
+	Print(ptrFirst);
+	Deleted(ptrFirst);
+}
