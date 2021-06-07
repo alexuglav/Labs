@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1212</width>
+    <height>602</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Коммивояжер</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../Desktop/ava.jpg</normaloff>../../../../Desktop/ava.jpg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">backcolor:rgb(251, 248, 255)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="6" column="3">
+     <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Обновить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="3">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>Длина кратчайшего пути:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="3">
+     <widget class="QLabel" name="label_result">
+      <property name="styleSheet">
+       <string notr="true">QLabel {
+  qproperty-alignment: 'AlignVCenter | AlignLeft';
+color:rgb(0, 0, 0);
+	background-color: rgb(255, 255, 255);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="4">
+     <widget class="QPushButton" name="btnResult">
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Вычислить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="12" colspan="3">
+     <widget class="QOpenGLWidget" name="openGLW">
+      <property name="styleSheet">
+       <string notr="true">QOpenGLWidget {
+	color: rgb(255, 255, 255);
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3" rowspan="3">
+     <widget class="QPushButton" name="btnClear">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Очистить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3" colspan="2">
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="styleSheet">
+       <string notr="true">background-color:rgb(229, 229, 229)</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="4">
+     <widget class="QPushButton" name="btnAdd">
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Добавить</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3" rowspan="2">
+     <widget class="QPushButton" name="btnCreate">
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Создать</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="4">
+     <widget class="QPushButton" name="btnDel">
+      <property name="styleSheet">
+       <string notr="true">
+QPushButton:hover:!pressed
+{
+border-radius:30px;
+ background-color:rgba(50, 50, 50, 75); 
+}
+QPushButton {
+  background-color: rgb(255, 255, 255);
+	color:rgb(255, 81, 0);
+}
+QPushButton:pressed {
+border-radius:30px;
+    background-color: rgba(50, 50, 50,100); ;
+}
+QPushButton:checked
+{
+border:none;
+	background-color: rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>Удалить</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
